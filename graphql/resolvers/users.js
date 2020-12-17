@@ -27,7 +27,7 @@ module.exports = {
                 errors.general = 'User not found';
                 throw new UserInputError('User not found', { errors });
             }
-            console.log(user);
+            
             const match = await bcrypt.compare(password, user.password);
             if(!match){
                 errors.general = 'Wrong credentials';
@@ -59,7 +59,7 @@ module.exports = {
 
             //TODO: hash password and create auth token
             password = await bcrypt.hash(password, 12);
-            console.log(password);
+            
             const newUser = new User({
                 email,
                 username,
