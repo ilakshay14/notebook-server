@@ -53,5 +53,10 @@ module.exports = gql`
         createComment(postId: ID!, body: String!): Post!
         deleteComment(postId: ID!, commentId: ID!): Post!
         likePost(postId: ID!): Post!
+        #TODO:Add the funcationality to follow/unfollow user
+    }
+
+    type Subscription{
+        newPost: Post!
     }
 `;
