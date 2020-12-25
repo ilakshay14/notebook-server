@@ -44,6 +44,7 @@ module.exports = {
         async register(_, { registerInput: { username, email, password, confirmPassword}}, context, info){
             //TODO: Validate user data
             const { errors, valid } = validateRegisterInput(username, email, password, confirmPassword);
+            
             if(!valid){
                 throw new UserInputError('Errors', { errors });
             }
@@ -56,6 +57,15 @@ module.exports = {
                     }
                 })
             }
+            
+            const emailCheck = await User.findOne({ email });
+            if(emailCheck){
+                throw new UserInputError('Email is taken', {
+                    errors: {
+                        email: 'This email is taken'
+                    }
+                })
+            }            
 
             //TODO: hash password and create auth token
             password = await bcrypt.hash(password, 12);
